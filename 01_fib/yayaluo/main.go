@@ -3,32 +3,30 @@ package main
 import (
 	"fmt"
 	"io"
-	"math"
 	"os"
 )
 
 var out io.Writer = os.Stdout
 
-func fib(n int) int {
-	absoluteValue := int(math.Abs(float64(n)))
-	f := make([]int, absoluteValue+1, absoluteValue+2)
-	f[0] = 0
-	switch {
-	case n < 0:
-		f[1] = -1
-	case n > 0:
-		f[1] = 1
-	default:
-		return f[0]
+func fib(n int) {
+	x, y := 0, 1
+	if n > 0 {
+		for i := 1; i <= n; i++ {
+			x, y = y, x+y
+			fmt.Fprintf(out, "%d\n", x)
+		}
+	} else {
+		for i := 1; i <= -n; i++ {
+			x, y = y, x+y
+			if i%2 == 0 {
+				fmt.Fprintf(out, "%d\n", -x)
+			} else {
+				fmt.Fprintf(out, "%d\n", x)
+			}
+		}
 	}
-	fmt.Fprintf(out, "%d\n", f[1])
-	for i := 2; i <= absoluteValue; i++ {
-		f[i] = f[i-1] + f[i-2]
-		fmt.Fprintf(out, "%d\n", f[i])
-	}
-	return f[absoluteValue]
 }
 
 func main() {
-	fib(7)
+	fib(0)
 }
