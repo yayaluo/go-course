@@ -28,5 +28,5 @@ func fib(n int) {
 }
 
 func main() {
-	fib(0)
+	fib(7)
 }
